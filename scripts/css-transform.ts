@@ -1,5 +1,5 @@
-import { l, c, d, err, g, m, r, y } from '../src/lib/utils/logger/logettes'
 import { readFile, writeFile, readdir } from 'node:fs/promises'
+import { l, c, d, err, g, m, r, y } from '@braebo/ansi'
 import { join, relative } from 'node:path'
 
 const DRY = true

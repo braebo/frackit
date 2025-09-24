@@ -109,7 +109,7 @@ export class Router<const T extends Route[] = Routes> {
 		}
 
 		const found = findRoute(this.routes, path)
-		if (DEV && !found) {
+		if (DEV && !found && !path.startsWith('/.well-known') && !path.startsWith('/404')) {
 			l(r(`Route not found:`), String(path))
 			l(d(`Routes:`), this.routes)
 		}
