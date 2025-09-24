@@ -1,4 +1,11 @@
-import type { TokenData, TokenMap, TokenType, DroppedCategory } from './types'
+import type {
+	CustomPropertiesTokenData,
+	CustomPropertyName,
+	DroppedCategory,
+	TokenMap,
+	UtilitiesTokenData,
+	UtilityClassName,
+} from './types'
 import type { Dirent } from 'node:fs'
 
 import { readdir, readFile } from 'node:fs/promises'
@@ -16,21 +23,28 @@ const SCSS_EXTENSION = '.scss'
 const parseScssRoot = (filePath: string, content: string) =>
 	(scssSyntax as any).parse(content, { from: filePath }) as import('postcss').Root
 
-const extractCustomPropertiesFromRoot = (root: import('postcss').Root): TokenData => {
-	const seen = new Set<string>()
-	const out: TokenData = {}
+const isCustomPropertyName = (value: string): value is CustomPropertyName => value.startsWith('--')
+
+const isUtilityClassName = (value: string): value is UtilityClassName => value.startsWith('.')
+
+const extractCustomPropertiesFromRoot = (root: import('postcss').Root): CustomPropertiesTokenData => {
+	const seen = new Set<CustomPropertyName>()
+	const out: Partial<CustomPropertiesTokenData> = {}
 	root.walkDecls(decl => {
 		if (!decl.prop || !decl.prop.startsWith('--')) return
 		const name = decl.prop.trim()
+		if (!isCustomPropertyName(name)) return
 		if (seen.has(name)) return
 		seen.add(name)
 		out[name] = String(decl.value).trim().replace(/\s+/g, ' ')
 	})
-	return out
+	return out as CustomPropertiesTokenData
 }
 
-const extractUtilityDeclarationsFromRoot = (root: import('postcss').Root): Map<string, TokenData> => {
-	const map = new Map<string, TokenData>()
+type RawUtilityDeclarations = Record<string, string>
+
+const extractUtilityDeclarationsFromRoot = (root: import('postcss').Root): Map<string, RawUtilityDeclarations> => {
+	const map = new Map<string, RawUtilityDeclarations>()
 
 	root.walkRules(rule => {
 		if (rule.parent && rule.parent.type !== 'root') return
@@ -123,12 +137,8 @@ const summarizeDropped = (name: string, root: import('postcss').Root, path: stri
 	return { name, reason: 'no tokens/utilities detected', path }
 }
 
-const formatUtilityDeclarations = (decls: TokenData): string =>
-	Object.entries(decls)
-		.map(([prop, val]) => `${prop}: ${val};`)
-		.join('\n')
 
-const buildCategoryName = (baseName: string, type: TokenType): string => `${baseName}/${type}`
+const buildCategoryName = (baseName: string): string => baseName
 
 const isScssFile = (entry: Dirent): boolean => entry.isFile() && extname(entry.name) === SCSS_EXTENSION
 
@@ -153,7 +163,7 @@ export const processStyles = async (): Promise<{ tokens: TokenMap; dropped: Drop
 		let categoriesCreated = 0
 
 		if (Object.keys(customProperties).length > 0) {
-			const name = buildCategoryName(baseName, TOKEN_TYPES.CUSTOM_PROPERTIES)
+			const name = buildCategoryName(baseName)
 			tokens[name] = {
 				type: TOKEN_TYPES.CUSTOM_PROPERTIES,
 				data: customProperties,
@@ -162,21 +172,23 @@ export const processStyles = async (): Promise<{ tokens: TokenMap; dropped: Drop
 		}
 
 		if (utilityDeclarations.size > 0) {
-			const name = buildCategoryName(baseName, TOKEN_TYPES.UTILITIES)
-			const data: TokenData = {}
+			const name = buildCategoryName(baseName)
+			const data: Partial<UtilitiesTokenData> = {}
 			for (const [utilityName, declarations] of utilityDeclarations) {
-				data[`.${utilityName}`] = formatUtilityDeclarations(declarations)
+				const className = `.${utilityName}`
+				if (!isUtilityClassName(className)) continue
+				data[className] = declarations
 			}
 			tokens[name] = {
 				type: TOKEN_TYPES.UTILITIES,
-				data,
+				data: data as UtilitiesTokenData,
 			}
 			categoriesCreated += 1
 		}
 
 		if (categoriesCreated === 0) {
 			if (SOURCE_ONLY_FILES.has(baseName)) {
-				const name = buildCategoryName(baseName, TOKEN_TYPES.SOURCE)
+				const name = buildCategoryName(baseName)
 				tokens[name] = {
 					type: TOKEN_TYPES.SOURCE,
 					data: {

@@ -8,10 +8,10 @@
 	let props_with_defaults = Object.assign(
 		{},
 		{
-			// parseJson: true,
+			parseJson: true,
 			showLength: false,
 			showTypes: false,
-            expandLevel: 4,
+            expandLevel: 3,
 		} satisfies Partial<InspectOptions>,
 		props,
 	) as InspectProps
