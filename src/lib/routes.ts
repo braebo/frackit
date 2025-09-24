@@ -1,8 +1,8 @@
-import type { Route } from './router/router.types'
+import { validateRoutes } from './router/router.types'
 
 export type Routes = typeof routes
 
-export const routes = [
+export const routes = validateRoutes([
 	{
 		path: '/',
 		title: 'Home',
@@ -52,4 +52,4 @@ export const routes = [
 			},
 		],
 	},
-] as const satisfies Route[]
+] as const)
