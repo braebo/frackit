@@ -4,15 +4,18 @@
 			"splitTerminals": [
 				{
 					"name": "server",
-					"commands": ["pnpm i && pnpm dev"]
+					"commands": ["bun i && bun dev"],
+					"shouldRunCommands": false
 				},
 				{
 					"name": "svelte-check",
-					"commands": ["pnpm check:watch"]
+					"commands": ["bun check:watch"],
+					"shouldRunCommands": false
 				},
 				{
 					"name": "vitest ui",
-					"commands": ["pnpm test"]
+					"commands": ["pnpm test"],
+					"shouldRunCommands": false
 				}
 			]
 		}
