@@ -1,0 +1,9 @@
+*::selection {
+	background-color: var(--theme-a);
+	color: var(--dark-a);
+}
+
+*::focus-text {
+	background-color: var(--theme-b);
+	color: var(--dark-a);
+}
