@@ -22,7 +22,8 @@
 		"lint": "prettier --check . --plugin-search-dir .",
 		"preview": "vite preview",
 		"test": "vitest --ui",
-		"test:e2e": "playwright test"
+		"test:e2e": "playwright test",
+		"generate:tokens": "bun run scripts/generate-tokens/cli.ts"
 	},
 	"devDependencies": {
 		"@braebo/ansi": "^0.1.0",

@@ -22,6 +22,11 @@ export const routes = [
 				title: 'Inputs',
 				children: [],
 			},
+			{
+				path: '/design/tokens',
+				title: 'Tokens',
+				children: [],
+			},
 		],
 	},
 	{
