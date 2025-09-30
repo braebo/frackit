@@ -3,28 +3,56 @@
 -->
 
 <script lang="ts">
-	import { router, type Route } from '$lib/router'
+	import type { Route } from '$lib/router'
 
-	import Dropdown from '$lib/components/Dropdown.svelte'
-	import Self from './Nav.Links.svelte'
-	import { page } from '$app/state'
-	import { hover } from '$lib/actions/hover'
 	import Inspect from '../Inspect.svelte'
+	import Self from './Nav.Links.svelte'
+	import { router } from '$lib/router'
+	import { onDestroy } from 'svelte'
+	import { page } from '$app/state'
 
-	let { links, depth = 0 }: { links: readonly Route[]; depth?: number } = $props()
+	let {
+		links,
+		depth = 0,
+		hoverId = $bindable(null),
+	}: {
+		links: readonly Route[]
+		/**
+		 * The current depth of this recursive submenu component.
+		 * @internal
+		 */
+		depth?: number
+		/**
+		 * The path of the currently hovered link.  Used to show/hide submenus.
+		 * @internal
+		 */
+		hoverId?: string | null
+	} = $props()
 
-	let hoverId = $state<string | null>(null)
 	let root = $derived(depth === 0)
 
+	let timer: ReturnType<typeof setTimeout> | undefined
 	function setActiveHoverId(hovering: boolean, path: string) {
-		console.log('setActiveHoverId', hovering, path)
-		if (hovering) {
+		clearTimeout(timer)
+		if (hovering || hoverId !== path) {
 			hoverId = path
 		} else if (hoverId === path) {
-			hoverId = null
+			timer = setTimeout(() => {
+				hoverId = null
+			}, 500)
 		}
 	}
 
+	onDestroy(() => {
+		hoverId = null
+		clearTimeout(timer)
+	})
+
+	/**
+	 * Returns relationship information about a given route.
+	 * @param path - The path of the route to get relationship information for.
+	 * @param page - The current page object.
+	 */
 	const routeMeta = (
 		path: Route['path'],
 		page: typeof import('$app/state').page,
@@ -40,14 +68,7 @@
 
 {#key hoverId}
 	{#if depth === 0}
-		<div
-			class="inspect"
-			style="
-	position: absolute;
-	top: 5rem;
-	right: 1rem;
-"
-		>
+		<div class="inspect" style="position:absolute; top:5rem; right:1rem;">
 			<Inspect values={{ hoverId }} />
 		</div>
 	{/if}
@@ -59,17 +80,12 @@
 		{@const only_child = link.children?.length === 1}
 
 		{#if link.children?.[0]?.path}
-			<div class="dropdown" class:open={force_open || (hoverId && link.path.startsWith(hoverId))}>
+			<div class="dropdown" class:open={force_open || (hoverId && hoverId.startsWith(link.path))}>
 				<div
 					class="link-wrapper"
 					style:--delay="{i * 0.1}s"
-					use:hover={{ delay: 500 }}
-					onhover={({ detail }) => {
-						if (detail.hovering === false && hoverId !== link.path) {
-							return
-						}
-						setActiveHoverId(detail.hovering, link.path)
-					}}
+					onpointerenter={() => setActiveHoverId(true, link.path)}
+					onpointerleave={() => setActiveHoverId(false, link.path)}
 				>
 					{@render anchor(link, depth)}
 				</div>
@@ -82,7 +98,7 @@
 				>
 					<div class="submenu" class:active={router.isActive(link.path, page)}>
 						{#if link.children?.length}
-							<Self links={link.children} depth={depth + 1} />
+							<Self links={link.children} depth={depth + 1} bind:hoverId />
 						{/if}
 					</div>
 				</nav>
@@ -91,13 +107,8 @@
 			<div
 				class="link-wrapper"
 				style:--delay="{i * 0.1}s"
-				use:hover={{ delay: 500 }}
-				onhover={({ detail }) => {
-					if (detail.hovering === false && hoverId !== link.path) {
-						return
-					}
-					setActiveHoverId(detail.hovering, link.path)
-				}}
+				onpointerenter={() => setActiveHoverId(true, link.path)}
+				onpointerleave={() => setActiveHoverId(false, link.path)}
 			>
 				{@render anchor(link, depth)}
 			</div>
@@ -247,7 +258,6 @@
 		color: inherit;
 		outline: none;
 		border: none;
-		// outline-offset: -2px;
 		text-decoration: none;
 
 		font-size: var(--font-sm);

@@ -527,8 +527,6 @@
 		border-radius: var(--radius);
 		box-shadow: none;
 
-		font: var(--font-ui-md);
-
 		&.active {
 			color: var(--link-color-active);
 		}

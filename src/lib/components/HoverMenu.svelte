@@ -27,7 +27,6 @@
 
 			color: inherit;
 
-			font: var(--font-ui-md);
 			text-decoration: none;
 			line-height: 1;
 			text-align: left;

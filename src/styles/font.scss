@@ -47,21 +47,6 @@
 	--line-height-body: calc(1.5 * var(--font));
 	--line-height-body-sm: calc(1.5 * var(--font-xs));
 
-	--font-h1: 800 var(--font-xxxl) / 1.2 var(--font-a);
-	--font-h2: 700 var(--font-xxl) / 1.2 var(--font-a);
-	--font-h3: 500 var(--font-xl) / 1.2 var(--font-a);
-	--font-h4: 400 var(--font-lg) / 1.2 var(--font-a);
-	--font-h5: 400 var(--font-md) / 1.2 var(--font-a);
-
-	--font-body: 400 var(--font) / var(--line-height-body) var(--font-a);
-	--font-body-sm: 400 var(--font-xs) / var(--line-height-body-sm) var(--font-a);
-
-	--font-ui-sm: 400 var(--font-sm) / 1.5 var(--font-a);
-	--font-ui: 400 var(--font) / 1.5 var(--font-a);
-	--font-ui-md: 400 var(--font-md) / 1.5 var(--font-a);
-	--font-ui-lg: 400 var(--font-lg) / 1.5 var(--font-a);
-	--font-ui-xl: 400 var(--font-xl) / 1.5 var(--font-a);
-
 	--font-mono: 400 var(--font) / 1.1 var(--font-m);
 
 	font-synthesis: none;
@@ -88,7 +73,10 @@ option,
 label,
 legend,
 fieldset {
-	font: var(--font-body);
+	font-weight: 400;
+	font-size: var(--font);
+	line-height: var(--line-height-body);
+	font-family: var(--font-a);
 }
 
 pre,
@@ -96,22 +84,36 @@ code {
 	font: var(--font-mono);
 }
 
+h1,
+h2,
+h3,
+h4,
+h5 {
+	font-family: var(--font-a);
+	line-height: 1.2;
+}
+
 h1 {
-	font: var(--font-h1);
+	font-weight: 800;
+	font-size: var(--font-xxxl);
 }
 
 h2 {
-	font: var(--font-h2);
+	font-weight: 700;
+	font-size: var(--font-xxl);
 }
 
 h3 {
-	font: var(--font-h3);
+	font-weight: 500;
+	font-size: var(--font-xl);
 }
 
 h4 {
-	font: var(--font-h4);
+	font-weight: 400;
+	font-size: var(--font-lg);
 }
 
 h5 {
-	font: var(--font-h5);
+	font-weight: 400;
+	font-size: var(--font-md);
 }
