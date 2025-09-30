@@ -4,6 +4,7 @@
 	import Nav from '$lib/components/nav/Nav.svelte'
 	import Gooey from '$lib/components/Gooey.svelte'
 	import { BROWSER, DEV } from 'esm-env'
+	import { page } from '$app/state'
 	import '../styles/app.scss'
 
 	setupViewTransition()
@@ -29,5 +30,5 @@
 </Shell>
 
 {#if DEV && BROWSER}
-	<Gooey />
+	<Gooey title={page.data.title} />
 {/if}
