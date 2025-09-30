@@ -19,7 +19,7 @@
 	}: {
 		home_title?: string
 		title: string | undefined
-		links: Route[]
+		links: readonly Route[]
 	} = $props()
 
 	let visible = $state(true)
