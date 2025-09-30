@@ -42,8 +42,8 @@
 
 <style lang="scss">
 	nav {
-		contain: layout size style;
-		view-transition-name: nav;
+		// contain: layout size style;
+		// view-transition-name: nav;
 
 		position: fixed;
 		display: flex;
@@ -92,6 +92,7 @@
 	.home-link {
 		transform: translateY(2px);
 		margin-right: 1rem;
+		box-shadow: none;
 	}
 
 	.desktop {

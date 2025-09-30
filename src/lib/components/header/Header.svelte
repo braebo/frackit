@@ -1,16 +1,16 @@
-<script lang="ts">
+<!-- <script lang="ts">
 	import HomeIcon from '$lib/components/header/Logo.svelte'
 	import { device } from '$lib/utils/device.svelte'
 	import DesktopNav from './navs/NavDesktop.svelte'
 	import ThemeSwitch from '../ThemeSwitch.svelte'
-	import { page } from '$app/stores'
+	import { page } from '$app/state'
 </script>
 
 <span style="display: contents; --height: 4.25rem">
 	<header class:scrolled={device.scrollY > 0}>
 		<div class="home">
 			<a href="/">
-				<HomeIcon --width="1.5rem" active={$page.url.pathname === '/'} />
+				<HomeIcon --width="1.5rem" active={page.url.pathname === '/'} />
 			</a>
 		</div>
 
@@ -50,4 +50,4 @@
 		position: relative;
 		z-index: 30;
 	}
-</style>
+</style> -->

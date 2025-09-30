@@ -1,24 +1,33 @@
 // todo - this will break if sveltekit changes this file again... should write a test or something.
 import ROUTES from '../../../.svelte-kit/types/route_meta_data.json'
 
-export type Route = {
-	path: string
-	title: string
-	children?: Route[]
+export type Route = Readonly<{
+	readonly path: string
+	readonly title: string
+	readonly children?: readonly Route[]
 	/**
 	 * Whether the route is only reachable during development.
 	 * @default false
 	 */
-	dev?: boolean
-}
+	readonly dev?: boolean
+}>
 
-export type ExtractPaths<T extends Route[]> = T extends readonly (infer R)[]
-	? R extends { path: string; children?: Route[] }
-		? R['path'] | (R['children'] extends Route[] ? ExtractPaths<R['children']> : never)
+// export type Routes = readonly Route[]
+
+/**
+ * Extracts all possible paths from a route tree.
+ * @example
+ * ```ts
+ * ExtractPaths<typeof routes> // '/foo/bar' | '/foo/baz' | '/foo/qux'
+ * ```
+ */
+export type ExtractPaths<T extends readonly Route[]> = T extends readonly (infer R)[]
+	? R extends { path: string; children?: readonly Route[] }
+		? R['path'] | (R['children'] extends readonly Route[] ? ExtractPaths<R['children']> : never)
 		: never
 	: never
 
-export type GetRouteByPath<T extends Route[], P extends ExtractPaths<T>> = T extends readonly (infer R)[]
+export type GetRouteByPath<T extends readonly Route[], P extends ExtractPaths<T>> = T extends readonly (infer R)[]
 	? R extends { path: P; title: string }
 		? R
 		: R extends { children: Route[] }
@@ -62,8 +71,8 @@ export function validateRoutes<const T extends readonly Route[]>(
 					? T[K]
 					: // prettier-ignore
 						{ error: `Path "${StripLayoutGroups<P> & string}" (stripped from "${P & string}") is not a valid route in ROUTES` }
-				: T[K]
-			: T[K]
+				: Readonly<T[K]>
+			: Readonly<T[K]>
 	},
 ): T {
 	return routes

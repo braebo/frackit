@@ -9,6 +9,7 @@
 
 <div class="menu">
 	<!-- <Search /> -->
+
 	<div class="external-links">
 		<a href="https://bsky.app/profile/braebo.dev" data-icon="bluesky" aria-label="braebo on Bluesky"></a>
 		<a href="https://github.com/braebo/svelte-starter" data-icon="github" aria-label="GitHub Repo"></a>

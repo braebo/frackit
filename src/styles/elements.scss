@@ -30,11 +30,14 @@ a {
 
 	width: fit-content;
 	text-decoration: none;
-	box-shadow: 0 1px var(--bg-e);
 	transition: 0.1s ease-out;
 
-	&:hover {
-		box-shadow: 0 1px var(--theme-a);
+	&.underline {
+		box-shadow: 0 1px var(--bg-e);
+
+		&:hover {
+			box-shadow: 0 1px var(--theme-a);
+		}
 	}
 }
 

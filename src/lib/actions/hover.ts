@@ -16,6 +16,10 @@ export const hover: Action<
 	| undefined,
 	{
 		onhover?: (event: CustomEvent<{ hovering: boolean }>) => void
+		/**
+		 * Called when the _actual_ `onleave` fires, before any delay is applied.
+		 */
+		ontrigger?: (event: CustomEvent<{ hovering: boolean }>) => void
 	}
 > = (node, options) => {
 	function enter(_e: Event) {
@@ -26,9 +30,18 @@ export const hover: Action<
 	let leaveTimer: ReturnType<typeof setTimeout>
 	function leave(_e: Event) {
 		clearTimeout(leaveTimer)
-		leaveTimer = setTimeout(() => {
+
+		const delay = options?.delay ?? 0
+
+		if (delay > 0) {
+			node.dispatchEvent(new CustomEvent('trigger', { detail: { hovering: false } }))
+			leaveTimer = setTimeout(() => {
+				node.dispatchEvent(new CustomEvent('hover', { detail: { hovering: false } }))
+			}, delay)
+		} else {
+			node.dispatchEvent(new CustomEvent('trigger', { detail: { hovering: false } }))
 			node.dispatchEvent(new CustomEvent('hover', { detail: { hovering: false } }))
-		}, options?.delay ?? 0)
+		}
 	}
 
 	node.addEventListener('pointerleave', leave, true)

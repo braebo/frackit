@@ -11,7 +11,7 @@ import { DEV } from 'esm-env'
  * @deprecated Use the {@link router} singleton.
  * @internal This class is only exported for testing purposes.
  */
-export class Router<const T extends Route[] = Routes> {
+export class Router<const T extends readonly Route[] = Routes> {
 	readonly routes: T
 	readonly repo_url = 'https://github.com/braebo/svelte-starter' as const
 
@@ -22,8 +22,9 @@ export class Router<const T extends Route[] = Routes> {
 	/**
 	 * Returns `true` if a given path is the same as the current page's.
 	 */
-	isActive(path: ExtractPaths<T> | (string & {}), page: typeof Page): boolean {
-		return page.url.pathname === path
+	isActive(path: ExtractPaths<T> | (string & {}), page: typeof Page | string): boolean {
+		const url = typeof page === 'string' ? page : page.url.pathname
+		return url === path
 	}
 
 	/**
@@ -39,8 +40,9 @@ export class Router<const T extends Route[] = Routes> {
 	 * router.isParent('/foo/baz', page) // false
 	 * ```
 	 */
-	isParent(path: ExtractPaths<T> | (string & {}), page: typeof Page): boolean {
-		return page.url.pathname.startsWith(path) && !this.isActive(path, page)
+	isParent(path: ExtractPaths<T> | (string & {}), page: typeof Page | string): boolean {
+		const url = typeof page === 'string' ? page : page.url.pathname
+		return url.startsWith(path) && !this.isActive(path, page)
 	}
 
 	/**
@@ -56,8 +58,9 @@ export class Router<const T extends Route[] = Routes> {
 	 * router.parentActive('/baz', page) // false
 	 * ```
 	 */
-	isChild(path: ExtractPaths<T> | (string & {}), page: typeof Page): boolean {
-		const current = page.url.pathname
+	isChild(path: ExtractPaths<T> | (string & {}), page: typeof Page | string): boolean {
+		const url = typeof page === 'string' ? page : page.url.pathname
+		const current = url
 		if (current === '/' && path !== '/') return false
 		if (path === current) return false
 		return path.startsWith(current)
@@ -76,9 +79,10 @@ export class Router<const T extends Route[] = Routes> {
 	 * router.siblingActive('/baz', page) // false
 	 * ```
 	 */
-	isSibling(path: ExtractPaths<T> | (string & {}), page: typeof Page): boolean {
+	isSibling(path: ExtractPaths<T> | (string & {}), page: typeof Page | string): boolean {
+		const url = typeof page === 'string' ? page : page.url.pathname
 		const parent = path.split('/').slice(0, -1).join('/')
-		return page.url.pathname.startsWith(parent) && page.url.pathname !== parent
+		return url.startsWith(parent) && url !== parent
 	}
 
 	get current(): Route {
@@ -93,10 +97,10 @@ export class Router<const T extends Route[] = Routes> {
 	 * router.get('/foo/bar') // { path: '/foo/bar', title: 'Bar', children: [] }
 	 * ```
 	 */
-	get<P extends ExtractPaths<typeof this.routes>>(
+	get<const P extends ExtractPaths<typeof this.routes>>(
 		path: P | (string & {}),
 	): GetRouteByPath<typeof this.routes, P> | null {
-		const findRoute = (routes: Route[], targetPath: string): Array<Route>[number] | undefined => {
+		const findRoute = (routes: readonly Route[], targetPath: string): Array<Route>[number] | undefined => {
 			const found = routes.find(route => route.path === targetPath)
 			if (found) return found
 

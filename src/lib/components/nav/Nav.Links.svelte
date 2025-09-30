@@ -5,61 +5,112 @@
 <script lang="ts">
 	import { router, type Route } from '$lib/router'
 
-	import HoverMenu from '$lib/components/HoverMenu.svelte'
 	import Dropdown from '$lib/components/Dropdown.svelte'
+	import Self from './Nav.Links.svelte'
 	import { page } from '$app/state'
+	import { hover } from '$lib/actions/hover'
+	import Inspect from '../Inspect.svelte'
 
-	let { links }: { links: Route[] } = $props()
+	let { links, depth = 0 }: { links: readonly Route[]; depth?: number } = $props()
 
 	let hoverId = $state<string | null>(null)
+	let root = $derived(depth === 0)
 
 	function setActiveHoverId(hovering: boolean, path: string) {
+		console.log('setActiveHoverId', hovering, path)
 		if (hovering) {
 			hoverId = path
 		} else if (hoverId === path) {
 			hoverId = null
 		}
 	}
+
+	const routeMeta = (
+		path: Route['path'],
+		page: typeof import('$app/state').page,
+	): { active: boolean; parent: boolean; child: boolean; sibling: boolean } => {
+		return {
+			active: router.isActive(path, page),
+			parent: router.isParent(path, page),
+			child: router.isChild(path, page),
+			sibling: router.isSibling(path, page),
+		}
+	}
 </script>
 
-<div class="links">
-	{#each links as link}
+{#key hoverId}
+	{#if depth === 0}
+		<div
+			class="inspect"
+			style="
+	position: absolute;
+	top: 5rem;
+	right: 1rem;
+"
+		>
+			<Inspect values={{ hoverId }} />
+		</div>
+	{/if}
+{/key}
+
+<div class="links" class:root>
+	{#each links as link, i}
+		{@const force_open = !(hoverId && hoverId !== link.path) && router.isParent(link.path, page)}
+		{@const only_child = link.children?.length === 1}
+
 		{#if link.children?.[0]?.path}
-			<!-- prettier-ignore -->
-			<Dropdown
-				onHover={e => setActiveHoverId(e, link.path)}
-				force_open={
-					!(hoverId && hoverId !== link.path) && 
-					(router.isActive(link.path, page) ||
-					router.isParent(link.path, page))
-				}
-			>
-				<div class="link-wrapper">
-					{@render anchor(link, 'primary')}
+			<div class="dropdown" class:open={force_open || (hoverId && link.path.startsWith(hoverId))}>
+				<div
+					class="link-wrapper"
+					style:--delay="{i * 0.1}s"
+					use:hover={{ delay: 500 }}
+					onhover={({ detail }) => {
+						if (detail.hovering === false && hoverId !== link.path) {
+							return
+						}
+						setActiveHoverId(detail.hovering, link.path)
+					}}
+				>
+					{@render anchor(link, depth)}
 				</div>
 
-				{#snippet dropdown()}
-					<HoverMenu>
-						{#each link.children ?? [] as child}
-							{@render anchor(child, 'secondary')}
-						{/each}
-					</HoverMenu>
-				{/snippet}
-			</Dropdown>
+				<nav
+					class="dropdown-content"
+					class:depth-1={depth + 1 === 1}
+					class:only-child={only_child}
+					data-depth={depth}
+				>
+					<div class="submenu" class:active={router.isActive(link.path, page)}>
+						{#if link.children?.length}
+							<Self links={link.children} depth={depth + 1} />
+						{/if}
+					</div>
+				</nav>
+			</div>
 		{:else}
-			{@render anchor(link, 'primary')}
+			<div
+				class="link-wrapper"
+				style:--delay="{i * 0.1}s"
+				use:hover={{ delay: 500 }}
+				onhover={({ detail }) => {
+					if (detail.hovering === false && hoverId !== link.path) {
+						return
+					}
+					setActiveHoverId(detail.hovering, link.path)
+				}}
+			>
+				{@render anchor(link, depth)}
+			</div>
 		{/if}
 	{/each}
 </div>
 
-{#snippet anchor(link: Route, className: string)}
-	{@const active = router.isActive(link.path, page)}
-	{@const parent = router.isParent(link.path, page)}
-	{@const child = router.isChild(link.path, page)}
-	{@const sibling = router.isSibling(link.path, page)}
+{#snippet anchor(link: Route, depth: number)}
+	{@const { active, parent, child, sibling } = routeMeta(link.path, page)}
 
 	<a
-		class={className}
+		class="depth-{depth}"
+		class:root
 		href={link.path}
 		data-text={link.title}
 		aria-current={active ? 'page' : null}
@@ -71,7 +122,7 @@
 		{link.title}
 	</a>
 
-	{#if className === 'primary' && link.children?.length}
+	{#if depth === 0 && link.children?.length}
 		<div class="lip" class:active class:parent class:sibling></div>
 	{/if}
 {/snippet}
@@ -82,181 +133,179 @@
 		width: 100%;
 		align-items: center;
 
-		opacity: 0;
-		transform: translateX(-1rem);
-		animation: fade-in 1s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards;
-
-		.link-wrapper {
-			display: flex;
-			align-items: center;
+		&:not(.root) {
 			gap: 0.5rem;
-
-			height: 100%;
 		}
+	}
 
-		.lip {
-			position: absolute;
-			bottom: 0;
-			left: 0;
-			right: 0;
+	.dropdown {
+		position: relative;
+		display: inline-block;
+		height: 100%;
 
-			width: 1rem;
-			height: 0.2rem;
-			margin: 0 auto;
+		z-index: 100;
+	}
 
-			border-top-left-radius: var(--radius-sm);
-			border-top-right-radius: var(--radius-sm);
+	.dropdown-content {
+		position: absolute;
 
-			--bg1: var(--bg-b);
-			--bg2: var(--bg-a);
+		transition: 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+		clip-path: inset(0 0 100% 0);
+		transform: translate(-33%, 0);
 
-			:root.light & {
-				--bg1: color-mix(in oklch, var(--bg-b), var(--bg-c) 20%);
-				--bg2: color-mix(in oklch, var(--bg-c), var(--bg-d) 10%);
-			}
+		transform-origin: center;
 
-			&.active {
-				&::before {
-					opacity: 1;
-					background-image: radial-gradient(
-						ellipse at 50% 100% in oklch,
-						var(--theme-a) -50%,
-						color-mix(in srgb, var(--bg1), var(--theme-a) 10%) 50%,
-						var(--bg2) 120%
-					);
-				}
-			}
+		pointer-events: none;
+		isolation: isolate;
+		z-index: -1;
 
-			&.parent {
-				background: color-mix(in srgb, var(--theme-a), var(--bg-a) 33%);
-
-				&::before {
-					opacity: 1;
-					background-image: radial-gradient(circle at 50% 250%, transparent 60%, var(--bg2) 100%);
-				}
-			}
-
-			&::before {
-				$width: 1.5rem;
-				content: '';
-				position: absolute;
-				bottom: 0;
-				left: calc($width * -0.175);
-
-				width: $width;
-				height: 0.6rem;
-				margin: 0 auto;
-
-				opacity: 0.5;
-				background-image: radial-gradient(circle at 50% 150%, transparent 0%, var(--bg-a) 100%);
-				border-top-left-radius: var(--radius-sm);
-				border-top-right-radius: var(--radius-sm);
-
-				z-index: -1;
-			}
+		top: calc(var(--nav-height) * 0.75);
+		&.depth-1 {
+			top: calc(var(--nav-height) + 0.5rem);
 		}
+	}
 
-		.primary:hover + .lip,
-		.primary.active + .lip {
-			opacity: 1;
-			background-color: var(--theme-a);
-			&::before {
-				opacity: 1;
-				background-image: radial-gradient(
-					ellipse at 50% 100% in oklch,
-					var(--theme-a) -50%,
-					color-mix(in srgb, var(--bg1), var(--theme-a) 10%) 50%,
-					var(--bg2) 120%
-				);
-			}
-		}
+	.dropdown.open {
+		.dropdown-content {
+			pointer-events: all;
+			clip-path: inset(0 0 0 0);
+			transform: translate(-33%, 0);
 
-		.primary:hover:not(.active) + .lip {
-			opacity: 1;
-			background-color: color-mix(in srgb, var(--theme-a), var(--bg-c) 50%);
-		}
-
-		a {
-			box-sizing: content-box;
-
-			position: relative;
-			display: inline-flex;
-			flex-direction: column;
-			align-items: center;
-			justify-content: center;
-			height: 100%;
-
-			color: inherit;
-			outline-offset: -2px;
-			border-left: 1px solid transparent;
-			border-right: 1px solid transparent;
-			text-decoration: none;
-			box-shadow: inset 0 -1px 0 0 transparent;
-
-			font-family: var(--font-a);
-			font-variation-settings: 'wght' 450;
-			// font-size: var(--font);
-			font-size: 1.6rem;
-			white-space: nowrap;
-			line-height: 1.5;
-			letter-spacing: 0.05rem;
-
-			transition: 0.1s;
-
-			&.child:not(.active):not(:hover):not(:focus-visible) {
-				color: var(--fg-c);
-				font-variation-settings: 'wght' 450;
-			}
-
-			&::after {
-				content: attr(data-text);
-				content: attr(data-text) / '';
-				height: 0;
-				visibility: hidden;
-				overflow: hidden;
-				user-select: none;
-				pointer-events: none;
-
-				@media speech {
-					display: none;
-				}
-			}
-
-			&.active,
-			&::after {
-				font-variation-settings: 'wght' 620;
-			}
-
-			&:hover.secondary {
-				background: light-dark(var(--bg-b), var(--bg-c));
-			}
-
-			&.active.secondary {
-				box-shadow: inset 0 -1px 0 0 var(--theme-a);
-			}
-
-			&:not(.secondary) {
-				box-sizing: content-box;
-				padding: 0 1.5rem;
-			}
-
-			&.secondary {
-				font-size: var(--font-sm);
-
-				&:first-of-type {
-					border-bottom-left-radius: var(--radius-sm);
-				}
-				&:last-of-type {
-					border-bottom-right-radius: var(--radius-sm);
-				}
+			&.only-child {
+				transform: translate(0, 0);
 			}
 		}
 	}
 
-	@keyframes fade-in {
+	a.root {
+		height: 100%;
+		transform: translateX(-1rem);
+		clip-path: inset(0 100% 0 0);
+		animation: reveal-in 0.5s cubic-bezier(0.16, 1, 0.3, 1) var(--delay, 0.2s) forwards;
+	}
+
+	@keyframes reveal-in {
 		to {
-			opacity: 1;
+			clip-path: inset(0 0 0 0);
 			transform: translateX(0);
 		}
+	}
+
+	.link-wrapper {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+
+		height: 100%;
+	}
+
+	.lip {
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		right: 0;
+
+		width: 1rem;
+		height: 0.2rem;
+		margin: 0 auto;
+
+		border-radius: var(--radius-sm);
+		transition: 0.2s;
+
+		&.active {
+			background: var(--theme-a);
+			width: 1.5rem;
+		}
+
+		&.parent {
+			background: color-mix(in srgb, var(--theme-a), var(--bg-a) 33%);
+		}
+	}
+
+	a:hover + .lip,
+	a.active + .lip {
+		opacity: 1;
+		background-color: var(--theme-a);
+	}
+
+	a:hover:not(.active) + .lip {
+		opacity: 1;
+		background-color: color-mix(in srgb, var(--theme-a), var(--bg-c) 50%);
+	}
+
+	a {
+		box-sizing: content-box;
+
+		position: relative;
+		display: inline-flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+
+		padding: 0 1.5rem;
+
+		color: inherit;
+		outline: none;
+		border: none;
+		// outline-offset: -2px;
+		text-decoration: none;
+
+		font-size: var(--font-sm);
+		font-family: var(--font-a);
+		font-variation-settings: 'wght' 450;
+		letter-spacing: 0.05rem;
+		white-space: nowrap;
+		line-height: 1.5;
+
+		transition: 0.1s;
+
+		&.active {
+			color: var(--theme-a);
+		}
+
+		&:hover:not(.active):not(.root) {
+			font-variation-settings: 'wght' 550 !important;
+		}
+
+		&.child:not(.active):not(:hover):not(:focus-visible) {
+			color: var(--fg-c);
+			font-variation-settings: 'wght' 450 !important;
+		}
+
+		&::after {
+			content: attr(data-text);
+			content: attr(data-text) / '';
+			height: 0;
+			visibility: hidden;
+			overflow: hidden;
+			user-select: none;
+			pointer-events: none;
+
+			@media speech {
+				display: none;
+			}
+		}
+
+		&.active,
+		&::after {
+			font-variation-settings: 'wght' 620;
+		}
+	}
+
+	a:not(.root) {
+		padding: 1rem 1rem;
+
+		background: rgba(from var(--bg-a) r g b / 0.8);
+		border-radius: var(--radius-sm);
+		backdrop-filter: blur(6px);
+
+		font-size: var(--font-sm);
+		line-height: 1;
+	}
+
+	.submenu {
+		display: flex;
+		flex-wrap: nowrap;
+		flex-direction: row;
 	}
 </style>

@@ -32,10 +32,5 @@
 			line-height: 1;
 			text-align: left;
 		}
-
-		// :global(a:hover),
-		// :global(button:hover) {
-		// 	box-shadow: inset 0 -1px 0 0 var(--theme-a);
-		// }
 	}
 </style>
