@@ -14,7 +14,7 @@
 				},
 				{
 					"name": "vitest ui",
-					"commands": ["pnpm test"],
+					"commands": ["bun run test"],
 					"shouldRunCommands": false
 				}
 			]
