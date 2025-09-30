@@ -11,9 +11,7 @@
 	<p>
 		<sub
 			>ℹ
-			<a href={router.gh('src/styles/elements.scss')} target="_blank" data-sveltekit-reload>
-				elements.scss
-			</a>
+			<a href={router.gh('src/styles/elements.scss')} target="_blank" data-sveltekit-reload> elements.scss </a>
 		</sub>
 	</p>
 
@@ -81,7 +79,7 @@ function syntaxHighlighting(): true {
 	return true
 }
 
-console.log('some really long string that would usually cause a horizontal scroll when it overflows on the x axis because reasons');
+console.log('some really long string that, were it not contained within this conveniently scrollable pre, would otherwise force a lesser pre to expand beyond the document bounds until it eventually causes horizontal overflow at the :root level, cursing innocent mobile users stumbling in from the corners of the internet as they attempt to scroll — explicitly solely — vertically');
 ```
 		shiki-end -->
 		</div>

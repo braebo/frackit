@@ -6,10 +6,7 @@
 <Page title="Design">
 	<div class="br-sm"></div>
 
-	<p>
-		Svelte Starter uses a minimal css reset, and somewhat opinionated default styles for vanilla
-		HTML elements.
-	</p>
+	<p>Svelte Starter uses a minimal css reset, and somewhat opinionated default styles for vanilla HTML elements.</p>
 
 	<div class="br-lg"></div>
 
@@ -30,11 +27,11 @@
 
 		<div class="br-sm"></div>
 
-		<h3>Tokens & Utilities</h3>
+		<a href={router.link('/design/tokens')}><h3>Tokens & Utilities</h3></a>
 
 		<p>
-			A typical workflow usually involves the composition of utility classes from the various
-			design tokens available, like the theme colors, font definitions, and spacing scale.
+			A typical workflow usually involves the composition of utility classes from the various design tokens
+			available, like the theme colors, font definitions, and spacing scale.
 		</p>
 	</section>
 </Page>
