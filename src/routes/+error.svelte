@@ -28,7 +28,7 @@
 
 		color: var(--warn);
 
-		font-size: 10rem;
+		font-size: 6.25rem;
 		font-weight: 100;
 	}
 
@@ -36,6 +36,6 @@
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		gap: 2rem;
+		gap: 1.25rem;
 	}
 </style>

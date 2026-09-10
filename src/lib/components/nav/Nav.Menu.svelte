@@ -8,8 +8,6 @@
 </script>
 
 <div class="menu">
-	<!-- <Search /> -->
-
 	<div class="external-links">
 		<a href="https://bsky.app/profile/braebo.dev" data-icon="bluesky" aria-label="braebo on Bluesky"></a>
 		<a href="https://github.com/braebo/svelte-starter" data-icon="github" aria-label="GitHub Repo"></a>
@@ -25,12 +23,12 @@
 		position: relative;
 		display: flex;
 		width: 100%;
-		gap: 1.5rem;
+		gap: 1rem;
 
 		.external-links {
 			display: flex;
 			height: 100%;
-			gap: 1rem;
+			gap: 0.5rem;
 
 			a {
 				opacity: 0;
@@ -81,7 +79,7 @@
 			display: none;
 			width: 100%;
 			background: var(--bg-a);
-			padding: 1rem var(--padding-inset);
+			padding: 0.5rem var(--padding-inset);
 		}
 	}
 
@@ -98,15 +96,15 @@
 		}
 
 		[data-icon] {
-			width: 3rem;
+			width: 1.875rem;
 			height: 100%;
-			padding: 0 0.5rem;
+			padding: 0 0.313rem;
 
 			background-color: var(--fg-e);
 
 			mask-repeat: no-repeat;
 			mask-position: 50% 50%;
-			mask-size: calc(100% - 1rem) auto;
+			mask-size: calc(100% - 0.5rem) auto;
 
 			transition: background-color 0.15s;
 
@@ -120,7 +118,7 @@
 		}
 
 		[data-icon='github'] {
-			width: 3rem;
+			width: 1.875rem;
 			mask-image: url('$lib/icons/github.svg');
 		}
 	}

@@ -53,7 +53,7 @@ input[type='number'],
 select,
 textarea {
 	width: 100%;
-	padding: 0.2rem 1rem;
+	padding: 0.125rem 0.5rem;
 
 	color: var(--fg-a);
 	background-color: var(--background);
@@ -63,7 +63,7 @@ textarea {
 }
 
 textarea {
-	padding: 0.75rem 1rem;
+	padding: 0.469rem 0.5rem;
 }
 
 input::placeholder,
@@ -97,8 +97,8 @@ input[type='radio'] {
 
 input[type='radio'] {
 	appearance: none;
-	width: 1rem;
-	height: 1rem;
+	width: 0.5rem;
+	height: 0.5rem;
 	border-radius: 50%;
 	background-color: var(--outline);
 	outline: 1px solid var(--bg-d);
@@ -176,14 +176,14 @@ input[type='range'] {
 
 		border-radius: 20px;
 		background-color: var(--fg-d);
-		box-shadow: 0 0 1rem transparent;
+		box-shadow: 0 0 0.5rem transparent;
 
 		transition-duration: 0.3s;
 		transition-property: background-color, box-shadow;
 	}
 	&:active::-webkit-slider-thumb {
 		background-color: var(--theme-a);
-		box-shadow: 0 0 1rem var(--theme-a);
+		box-shadow: 0 0 0.5rem var(--theme-a);
 	}
 
 	&:focus-visible,

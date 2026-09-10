@@ -145,7 +145,7 @@
 		align-items: center;
 
 		&:not(.root) {
-			gap: 0.5rem;
+			gap: 0.313rem;
 		}
 	}
 
@@ -172,7 +172,7 @@
 
 		top: calc(var(--nav-height) * 0.75);
 		&.depth-1 {
-			top: calc(var(--nav-height) + 0.5rem);
+			top: calc(var(--nav-height) + 0.313rem);
 		}
 	}
 
@@ -190,7 +190,7 @@
 
 	a.root {
 		height: 100%;
-		transform: translateX(-1rem);
+		transform: translateX(-0.5rem);
 		clip-path: inset(0 100% 0 0);
 		animation: reveal-in 0.5s cubic-bezier(0.16, 1, 0.3, 1) var(--delay, 0.2s) forwards;
 	}
@@ -205,7 +205,7 @@
 	.link-wrapper {
 		display: flex;
 		align-items: center;
-		gap: 0.5rem;
+		gap: 0.313rem;
 
 		height: 100%;
 	}
@@ -216,8 +216,8 @@
 		left: 0;
 		right: 0;
 
-		width: 1rem;
-		height: 0.2rem;
+		width: 0.5rem;
+		height: 0.125rem;
 		margin: 0 auto;
 
 		border-radius: var(--radius-sm);
@@ -225,7 +225,7 @@
 
 		&.active {
 			background: var(--theme-a);
-			width: 1.5rem;
+			width: 1rem;
 		}
 
 		&.parent {
@@ -253,17 +253,18 @@
 		align-items: center;
 		justify-content: center;
 
-		padding: 0 1.5rem;
+		padding: 0 1rem;
 
 		color: inherit;
 		outline: none;
 		border: none;
 		text-decoration: none;
 
-		font-size: var(--font-sm);
+		// font-size: var(--font-sm);
+		font-size: 1rem;
 		font-family: var(--font-a);
 		font-variation-settings: 'wght' 450;
-		letter-spacing: 0.05rem;
+		letter-spacing: 0.5px;
 		white-space: nowrap;
 		line-height: 1.5;
 
@@ -303,7 +304,7 @@
 	}
 
 	a:not(.root) {
-		padding: 1rem 1rem;
+		padding: 0.5rem 0.5rem;
 
 		background: rgba(from var(--bg-a) r g b / 0.8);
 		border-radius: var(--radius-sm);

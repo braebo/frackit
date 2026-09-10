@@ -108,6 +108,6 @@ console.log('some really long string that, were it not contained within this con
 
 <style>
 	section {
-		gap: 1.5rem;
+		gap: 1rem;
 	}
 </style>

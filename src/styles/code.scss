@@ -22,7 +22,7 @@ pre,
 
 // Inline <code> elements.
 :not(pre) > code {
-	padding: 0.15rem 0.5rem;
+	padding: 0.094rem 0.313rem;
 }
 
 code {
@@ -51,6 +51,6 @@ code {
 
 pre[data-shiki-t-inline] {
 	display: inline-flex;
-	padding: 0.25rem 0.5rem;
-	padding: 0 0.5rem;
+	padding: 0.156rem 0.313rem;
+	padding: 0 0.313rem;
 }

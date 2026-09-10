@@ -1,4 +1,6 @@
-{
+import type { TokenMap } from '../../../../scripts/generate-tokens/types.ts'
+
+export const tokens = {
   "reset": {
     "type": "SOURCE",
     "data": {
@@ -8,23 +10,23 @@
   "dimensions": {
     "type": "CUSTOM_PROPERTIES",
     "data": {
-      "--radius-sm": "0.3rem",
-      "--radius": "0.5rem",
-      "--radius-md": "0.7rem",
-      "--radius-lg": "1rem",
-      "--padding": "0.8rem",
-      "--gap": "2rem",
-      "--page-width": "min(70rem, 100vw)",
-      "--nav-height": "5rem",
+      "--radius-sm": "0.188rem",
+      "--radius": "0.313rem",
+      "--radius-md": "0.438rem",
+      "--radius-lg": "0.5rem",
+      "--padding": "0.5rem",
+      "--gap": "1.25rem",
+      "--page-width": "min(43.75rem, 100vw)",
+      "--nav-height": "3.125rem",
       "--nav-width": "100%",
-      "--secondary-nav-height": "5rem",
-      "--padding-top": "6rem",
-      "--padding-bottom": "8rem",
-      "--padding-inset": "2rem",
-      "--thick-border-width": "0.3rem",
-      "--border-radius": "0.4rem",
-      "--border-radius-inner": "0.2rem",
-      "--page-content-width": "76rem",
+      "--secondary-nav-height": "3.125rem",
+      "--padding-top": "3.75rem",
+      "--padding-bottom": "5rem",
+      "--padding-inset": "1.25rem",
+      "--thick-border-width": "0.188rem",
+      "--border-radius": "0.25rem",
+      "--border-radius-inner": "0.125rem",
+      "--page-content-width": "47.5rem",
       "--banner-height": "0px"
     }
   },
@@ -34,29 +36,17 @@
       "--font-a": "'red_hat_text', system-ui, Inter, Avenir, Helvetica, Arial, sans-serif",
       "--font-b": "'dosis', system-ui, sans-serif",
       "--font-m": "'inconsolata', system-ui, monospace",
-      "--font-xxs": "clamp(0.8rem, 2vw, 1rem)",
-      "--font-xs": "clamp(1rem, 2vw, 1.2rem)",
-      "--font-sm": "clamp(1.2rem, 2vw, 1.3rem)",
-      "--font": "clamp(1.6rem, 2.7vw, 1.8rem)",
-      "--font-md": "clamp(1.6rem, 2vw, 2rem)",
-      "--font-lg": "clamp(2rem, 5vw, 2.8rem)",
-      "--font-xl": "clamp(2.4rem, 5vw, 3.2rem)",
-      "--font-xxl": "clamp(2.8rem, 7vw, 4.8rem)",
-      "--font-xxxl": "clamp(4.8rem, 10vw, 8rem)",
+      "--font-xxs": "clamp(0.5rem, 2vw, 0.5rem)",
+      "--font-xs": "clamp(0.5rem, 2vw, 0.75rem)",
+      "--font-sm": "clamp(0.75rem, 2vw, 0.875rem)",
+      "--font": "clamp(1rem, 2.7vw, 1.1rem)",
+      "--font-md": "clamp(1rem, 2vw, 1.25rem)",
+      "--font-lg": "clamp(1.25rem, 5vw, 1.75rem)",
+      "--font-xl": "clamp(1.5rem, 5vw, 2rem)",
+      "--font-xxl": "clamp(1.75rem, 7vw, 3rem)",
+      "--font-xxxl": "clamp(3rem, 10vw, 5rem)",
       "--line-height-body": "calc(1.5 * var(--font))",
       "--line-height-body-sm": "calc(1.5 * var(--font-xs))",
-      "--font-h1": "800 var(--font-xxxl) / 1.2 var(--font-a)",
-      "--font-h2": "700 var(--font-xxl) / 1.2 var(--font-a)",
-      "--font-h3": "500 var(--font-xl) / 1.2 var(--font-a)",
-      "--font-h4": "400 var(--font-lg) / 1.2 var(--font-a)",
-      "--font-h5": "400 var(--font-md) / 1.2 var(--font-a)",
-      "--font-body": "400 var(--font) / var(--line-height-body) var(--font-a)",
-      "--font-body-sm": "400 var(--font-xs) / var(--line-height-body-sm) var(--font-a)",
-      "--font-ui-sm": "400 var(--font-sm) / 1.5 var(--font-a)",
-      "--font-ui": "400 var(--font) / 1.5 var(--font-a)",
-      "--font-ui-md": "400 var(--font-md) / 1.5 var(--font-a)",
-      "--font-ui-lg": "400 var(--font-lg) / 1.5 var(--font-a)",
-      "--font-ui-xl": "400 var(--font-xl) / 1.5 var(--font-a)",
       "--font-mono": "400 var(--font) / 1.1 var(--font-m)"
     }
   },
@@ -64,9 +54,9 @@
     "type": "CUSTOM_PROPERTIES",
     "data": {
       "--shadow-lightness": "0.5",
-      "--shadow-sm": "0rem 0.0313rem 0.0469rem rgba(0, 0, 0, calc(var(--shadow-lightness) * 0.04)), 0rem 0.125rem 0.0938rem rgba(0, 0, 0, calc(var(--shadow-lightness) * 0.04)), 0rem 0.15rem 0.125rem rgba(0, 0, 0, calc(var(--shadow-lightness) * 0.05)), 0rem 0.1875rem 0.1875rem rgba(0, 0, 0, calc(var(--shadow-lightness) * 0.1)), 0rem 0.3125rem 0.3125rem rgba(0, 0, 0, calc(var(--shadow-lightness) * 0.1)), 0rem 0.4375rem 0.5rem rgba(0, 0, 0, calc(var(--shadow-lightness) * 0.15))",
-      "--shadow": "0rem 0.0469rem 0.0625rem rgba(0, 0, 0, calc(var(--shadow-lightness) * 0.03)), 0rem 0.15rem 0.125rem rgba(0, 0, 0, calc(var(--shadow-lightness) * 0.04)), 0rem 0.28rem 0.1875rem rgba(0, 0, 0, calc(var(--shadow-lightness) * 0.05)), 0rem 0.3125rem 0.3125rem rgba(0, 0, 0, calc(var(--shadow-lightness) * 0.065)), 0rem 0.5rem 0.5rem rgba(0, 0, 0, calc(var(--shadow-lightness) * 0.09)), 0rem 0.5rem 1.25rem rgba(0, 0, 0, calc(var(--shadow-lightness) * 0.1))",
-      "--shadow-lg": "0rem 0.078rem 0.0625rem rgba(0, 0, 0, calc(var(--shadow-lightness) * 0.06)), 0rem 0.15rem 0.15rem rgba(0, 0, 0, calc(var(--shadow-lightness) * 0.07)), 0rem 0.28rem 0.3125rem rgba(0, 0, 0, calc(var(--shadow-lightness) * 0.08)), 0rem 0.3125rem 0.5rem rgba(0, 0, 0, calc(var(--shadow-lightness) * 0.1)), 0rem 0.5rem 0.9375rem rgba(0, 0, 0, calc(var(--shadow-lightness) * 0.1)), 0rem 1.25rem 1.875rem rgba(0, 0, 0, calc(var(--shadow-lightness) * 0.01))"
+      "--shadow-sm": "0rem 0.02rem 0.029rem rgba(0, 0, 0, calc(var(--shadow-lightness) * 0.04)), 0rem 0.078rem 0.059rem rgba(0, 0, 0, calc(var(--shadow-lightness) * 0.04)), 0rem 0.094rem 0.078rem rgba(0, 0, 0, calc(var(--shadow-lightness) * 0.05)), 0rem 0.117rem 0.117rem rgba(0, 0, 0, calc(var(--shadow-lightness) * 0.1)), 0rem 0.195rem 0.195rem rgba(0, 0, 0, calc(var(--shadow-lightness) * 0.1)), 0rem 0.273rem 0.391rem rgba(0, 0, 0, calc(var(--shadow-lightness) * 0.15))",
+      "--shadow": "0rem 0.029rem 0.039rem rgba(0, 0, 0, calc(var(--shadow-lightness) * 0.03)), 0rem 0.094rem 0.078rem rgba(0, 0, 0, calc(var(--shadow-lightness) * 0.04)), 0rem 0.175rem 0.117rem rgba(0, 0, 0, calc(var(--shadow-lightness) * 0.05)), 0rem 0.195rem 0.195rem rgba(0, 0, 0, calc(var(--shadow-lightness) * 0.065)), 0rem 0.391rem 0.391rem rgba(0, 0, 0, calc(var(--shadow-lightness) * 0.09)), 0rem 0.391rem 0.781rem rgba(0, 0, 0, calc(var(--shadow-lightness) * 0.1))",
+      "--shadow-lg": "0rem 0.049rem 0.039rem rgba(0, 0, 0, calc(var(--shadow-lightness) * 0.06)), 0rem 0.094rem 0.094rem rgba(0, 0, 0, calc(var(--shadow-lightness) * 0.07)), 0rem 0.175rem 0.195rem rgba(0, 0, 0, calc(var(--shadow-lightness) * 0.08)), 0rem 0.195rem 0.313rem rgba(0, 0, 0, calc(var(--shadow-lightness) * 0.1)), 0rem 0.391rem 0.586rem rgba(0, 0, 0, calc(var(--shadow-lightness) * 0.1)), 0rem 0.781rem 1.172rem rgba(0, 0, 0, calc(var(--shadow-lightness) * 0.01))"
     }
   },
   "inputs": {
@@ -83,19 +73,19 @@
     "type": "UTILITIES",
     "data": {
       ".br-xs": {
-        "height": "0.5rem"
+        "height": "0.313rem"
       },
       ".br-sm": {
-        "height": "1rem"
+        "height": "0.5rem"
       },
       ".br-md": {
-        "height": "4rem"
+        "height": "2.5rem"
       },
       ".br-lg": {
-        "height": "6.5rem"
+        "height": "4.063rem"
       },
       ".br-xl": {
-        "height": "10rem"
+        "height": "6.25rem"
       },
       ".center": {
         "justify-content": "center",
@@ -176,4 +166,4 @@
       "--shadow-lightness": "0.33"
     }
   }
-}
+} as const satisfies TokenMap

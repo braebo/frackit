@@ -56,7 +56,7 @@
 		view-transition-name: page-title;
 
 		height: fit-content;
-		margin-left: -2rem;
+		margin-left: -1.25rem;
 
 		clip-path: inset(0 0 0 0);
 		filter: blur(0);

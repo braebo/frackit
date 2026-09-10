@@ -38,10 +38,10 @@
 
 <style lang="scss">
 	p {
-		padding-left: 1rem;
+		padding-left: 0.5rem;
 	}
 
 	section {
-		gap: 2rem;
+		gap: 1.25rem;
 	}
 </style>

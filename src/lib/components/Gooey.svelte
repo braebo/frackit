@@ -1,34 +1,46 @@
 <!-- @component
 	A gooey instance for debugging state.
 	Press `1` to toggle visibility.
+
+	TODO: This component is currently in flux while gooey is being updated.  Leave it for now.
 -->
 
 <script lang="ts">
-	import { nav_state } from '$lib/components/nav/nav_state.svelte'
 	import { onDestroy, onMount } from 'svelte'
 	import { page } from '$app/state'
+	import { Gooey } from 'gooey'
 	import { DEV } from 'esm-env'
+
+	let { title } = $props()
 
 	let gooey: import('gooey').Gooey
 
 	onMount(async () => {
 		if (!DEV) return
-		const { Gooey } = await import('gooey')
-		gooey = new Gooey({ title: 'nav', margin: { x: 16, y: 64 } })
 
-		gooey.elements.wrapper.style.transform = 'scale(2)'
-		gooey.hide(true)
+		// const { Gooey } = await import('gooey')
+		gooey = new Gooey({
+			title,
+			theme: 'scout',
+			margin: { x: 16, y: 64 },
+			storage: true,
+		})
+		gooey.element.style.setProperty('z-index', '200')
+		gooey.element.style.setProperty('position', 'fixed')
 
-		const nav_folder = gooey.addFolder('nav')
-		nav_folder.bindMany(nav_state)
-
+		// gooey.hide(true)
 		const page_folder = gooey.addFolder('page')
-		for (const key in page.data) {
-			if (!Array.isArray(page.data[key])) {
-				page_folder.bind(page.data, key)
-			} else {
-				page_folder.addText(JSON.stringify(page.data[key]))
-			}
+
+		console.log({ gooey, page_folder })
+
+		// TODO - bindMany's type is broken in gooey now??
+		try {
+
+			page_folder.bindMany($state.snapshot(page.data), { exclude: ['title'] })
+			page_folder.bindMany($state.snapshot(page.data), { exclude: ['title'], theme: 'light' })
+		} catch (e) {
+			console.error('WIP')
+			console.error(e)
 		}
 	})
 
@@ -36,9 +48,9 @@
 </script>
 
 <svelte:window
-	onkeydown={(e) => {
+	onkeydown={e => {
 		if (e.key === '1') {
-			gooey!.toggleHidden()
+			gooey?.toggleHidden()
 		}
 	}}
 />

@@ -16,6 +16,10 @@
 	<title>Svelte Starter · {data.title}</title>
 </svelte:head>
 
+{#if DEV && BROWSER}
+	<Gooey title={page.data.title} />
+{/if}
+
 <Shell>
 	{#snippet top_nav()}
 		<Nav title={data.title} links={data.routes} />
@@ -28,7 +32,3 @@
 		</main>
 	{/snippet}
 </Shell>
-
-{#if DEV && BROWSER}
-	<Gooey title={page.data.title} />
-{/if}

@@ -1,4 +1,4 @@
-import tokens from './tokens.json?raw'
+import { tokens } from './tokens'
 
 export const load = async () => {
 	return { tokens }

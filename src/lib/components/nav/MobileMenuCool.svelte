@@ -250,7 +250,7 @@
 
 		width: 100%;
 
-		border-radius: 1rem 1rem 0 0;
+		border-radius: 0.5rem 0.5rem 0 0;
 
 		transform: translate3d(0, 0, 0);
 
@@ -292,7 +292,7 @@
 		width: 100%;
 		height: 99.5%;
 
-		border-radius: 1rem 1rem 0 0;
+		border-radius: 0.5rem 0.5rem 0 0;
 		// background: var(--bg-b);
 		background: var(--menu-bg);
 
@@ -316,7 +316,7 @@
 		bottom: 0;
 
 		width: 100%;
-		height: 1rem;
+		height: 0.5rem;
 
 		// background: red;
 		background-image: linear-gradient(
@@ -374,7 +374,7 @@
 
 	li.active {
 		button {
-			transform: scaleX(0.8) scaleY(0.6) translate(0.3rem, 0);
+			transform: scaleX(0.8) scaleY(0.6) translate(0.188rem, 0);
 
 			background: var(--btn-bg-active);
 			&:hover {
@@ -391,7 +391,7 @@
 
 		.icon svg {
 			color: var(--svg-color-active);
-			transform: scale(1, 1.2) translate(0.4rem, 0.2rem);
+			transform: scale(1, 1.2) translate(0.25rem, 0.125rem);
 		}
 		.icon {
 			outline-color: transparent;
@@ -418,12 +418,12 @@
 		align-items: center;
 		justify-content: center;
 		background: var(--btn-bg);
-		gap: 1.5rem;
+		gap: 1rem;
 	}
 
 	li a {
 		// padding: 1rem 2rem;
-		padding: 1rem 1.25rem;
+		padding: 0.5rem 0.781rem;
 
 		color: var(--link-color);
 		box-shadow: none;
@@ -453,8 +453,8 @@
 	}
 
 	li.active:has(button) a {
-		max-width: calc(100% - 2rem);
-		margin-right: 2rem;
+		max-width: calc(100% - 1.25rem);
+		margin-right: 1.25rem;
 
 		background: var(--link-bg-active);
 	}
@@ -473,18 +473,18 @@
 		min-width: 50%;
 		height: fit-content;
 		max-height: 70vh;
-		padding: 1rem;
+		padding: 0.5rem;
 
 		// overflow-y: auto;
 		overflow-y: scroll;
 
 		&::-webkit-scrollbar {
-			width: 0.5rem;
+			width: 0.313rem;
 		}
 
 		&::-webkit-scrollbar-thumb {
 			background: var(--bg-b);
-			border-radius: 1rem;
+			border-radius: 0.5rem;
 			&:hover {
 				background: var(--bg-c);
 			}
@@ -498,7 +498,7 @@
 
 	button {
 		padding: 0;
-		width: 4rem;
+		width: 2.5rem;
 		outline: var(--btn-outline);
 
 		border-top-left-radius: 0;
@@ -511,7 +511,7 @@
 
 	.context {
 		right: 0;
-		border-radius: 1rem 1rem 0 0;
+		border-radius: 0.5rem 0.5rem 0 0;
 	}
 
 	.universal .contents,
@@ -525,7 +525,7 @@
 		ul {
 			display: flex;
 			flex-direction: column;
-			gap: 1rem;
+			gap: 0.5rem;
 		}
 
 		li {
@@ -539,8 +539,8 @@
 	}
 
 	hr {
-		margin: 0.5rem 0;
-		height: 2rem;
+		margin: 0.313rem 0;
+		height: 1.25rem;
 		border: none;
 	}
 

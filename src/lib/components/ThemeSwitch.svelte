@@ -32,11 +32,11 @@
 		position: relative;
 		--duration: 0.25s;
 
-		--width: 6.4rem;
-		--padding: 0.3rem;
+		--width: 4rem;
+		--padding: 0.2rem;
 		--accent: #2196f3;
 
-		--thumb-size: 1.76rem;
+		--thumb-size: 1.1rem;
 
 		--thumb: var(--bg-a);
 
@@ -52,8 +52,8 @@
 		--outline-focus: var(--bg-c);
 		.track {
 			box-shadow:
-				-1px 1.5px 0.48rem rgba(0, 0, 0, 0.25) inset,
-				0px 0.5px 0.16rem rgba(0, 0, 0, 0.25) inset;
+				-1px 1.5px 0.3rem rgba(0, 0, 0, 0.25) inset,
+				0px 0.5px 0.1rem rgba(0, 0, 0, 0.25) inset;
 		}
 	}
 
@@ -98,8 +98,8 @@
 		outline-style: solid;
 		border-radius: var(--radius);
 		box-shadow:
-			-1px 1px 0.528rem rgba(0, 0, 0, 0.33) inset,
-			0px 1px 0.16rem rgba(0, 0, 0, 0.33) inset;
+			-1px 1px 0.33rem rgba(0, 0, 0, 0.33) inset,
+			0px 1px 0.1rem rgba(0, 0, 0, 0.33) inset;
 
 		cursor: pointer;
 		transition:
@@ -126,12 +126,12 @@
 		max-height: 100%;
 
 		box-shadow:
-			0.0187rem 0.0625rem 0 color-mix(in lch, var(--bg-d), transparent 50%),
-			-0.0187rem 0.0187rem 0.006rem color-mix(in lch, var(--fg-d), transparent 75%) inset,
-			-0.0625rem 0.0625rem 0.0625rem color-mix(in lch, var(--fg-d), transparent 90%) inset,
-			0rem -0.0625rem 0.006rem rgba(1, 1, 1, 0.1) inset;
+			0.012rem 0.039rem 0 color-mix(in lch, var(--bg-d), transparent 50%),
+			-0.012rem 0.012rem 0.004rem color-mix(in lch, var(--fg-d), transparent 75%) inset,
+			-0.039rem 0.039rem 0.039rem color-mix(in lch, var(--fg-d), transparent 90%) inset,
+			0rem -0.039rem 0.004rem rgba(1, 1, 1, 0.1) inset;
 
-		border-radius: 0.4rem;
+		border-radius: 0.25rem;
 
 		transition: var(--transition);
 	}
@@ -157,20 +157,21 @@
 		transition: var(--transition);
 
 		font-size: var(--font-sm);
+		// font-size: 0.85rem;
 		font-family: var(--font-a);
 		font-variation-settings:
 			'wght' 400,
 			'wdth' 104;
-		letter-spacing: 0.16rem;
+		letter-spacing: 0.1rem;
 
 		&.light {
 			animation: in-left var(--duration) cubic-bezier(0.05, 1, 0.56, 0.91) forwards;
-			left: 0.8rem;
+			left: 0.3125rem;
 		}
 
 		&.dark {
 			animation: in-right var(--duration) cubic-bezier(0.05, 1, 0.56, 0.91) forwards;
-			right: 0.8rem;
+			right: 0.3125rem;
 		}
 
 		&.system {
@@ -204,7 +205,7 @@
 	button.system #{$thumb} {
 		transform: translate(0, 0);
 		width: calc(var(--width) - var(--padding) * 2);
-		border-radius: 0.3125rem;
+		border-radius: 0.195rem;
 	}
 
 	/* Animations */
@@ -233,7 +234,7 @@
 
 	@keyframes in-center {
 		from {
-			transform: translateX(-0.4rem) scale(1);
+			transform: translateX(-0.25rem) scale(1);
 			opacity: 0;
 		}
 		to {

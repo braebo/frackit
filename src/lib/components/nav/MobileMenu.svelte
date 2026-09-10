@@ -14,8 +14,8 @@
 	const log = new Logger('MobileMenu', { fg: 'crimson' })
 
 	interface Props {
-		links: Route[]
-		current: Route | undefined
+		links: readonly Route[]
+		current: readonly Route | undefined
 		onclose: () => void
 	}
 
@@ -293,7 +293,7 @@
 
 		width: 100%;
 
-		border-radius: 1rem 1rem 0 0;
+		border-radius: 0.5rem 0.5rem 0 0;
 
 		transform: translate3d(0, 0, 0);
 
@@ -372,7 +372,7 @@
 		width: 100%;
 		height: 99.5%;
 
-		border-radius: 1rem 1rem 0 0;
+		border-radius: 0.5rem 0.5rem 0 0;
 		// background: var(--bg-b);
 		background: var(--menu-bg);
 
@@ -396,7 +396,7 @@
 		bottom: 0;
 
 		width: 100%;
-		height: 1rem;
+		height: 0.5rem;
 
 		background-image: linear-gradient(
 			to bottom,
@@ -460,9 +460,9 @@
 		align-items: center;
 		justify-content: center;
 		transform: translateX(-1px);
-		gap: 1.5rem;
+		gap: 1rem;
 
-		width: calc(4rem + 1px);
+		width: calc(2.5rem + 1px);
 		padding: 0;
 
 		background: var(--btn-bg);
@@ -482,14 +482,14 @@
 		bottom: var(--padding);
 		gap: 0;
 
-		height: 4rem;
-		width: 4rem;
+		height: 2.5rem;
+		width: 2.5rem;
 
 		background: var(--btn-bg-active);
 		border-radius: var(--radius);
 
 		svg {
-			transform: scale(-0.75, 0.75) translate(0.25rem, 0);
+			transform: scale(-0.75, 0.75) translate(0.156rem, 0);
 		}
 	}
 
@@ -519,7 +519,7 @@
 	}
 
 	li a {
-		padding: 1rem 1.25rem;
+		padding: 0.5rem 0.781rem;
 
 		color: var(--link-color);
 		background: var(--link-bg);
@@ -547,7 +547,7 @@
 	}
 
 	li.active:has(button) a {
-		max-width: calc(100% - 2rem);
+		max-width: calc(100% - 1.25rem);
 	}
 
 	.context {
@@ -578,17 +578,17 @@
 		min-width: 50%;
 		height: fit-content;
 		max-height: 70vh;
-		padding: 1rem;
+		padding: 0.5rem;
 
 		overflow-y: scroll;
 
 		&::-webkit-scrollbar {
-			width: 0.5rem;
+			width: 0.313rem;
 		}
 
 		&::-webkit-scrollbar-thumb {
 			background: var(--bg-b);
-			border-radius: 1rem;
+			border-radius: 0.5rem;
 			&:hover {
 				background: var(--bg-c);
 			}
@@ -602,7 +602,7 @@
 
 	.context {
 		right: 0;
-		border-radius: 1rem 1rem 0 0;
+		border-radius: 0.5rem 0.5rem 0 0;
 	}
 
 	.universal .contents,
@@ -616,7 +616,7 @@
 		ul {
 			display: flex;
 			flex-direction: column;
-			gap: 1rem;
+			gap: 0.5rem;
 		}
 
 		li {
@@ -648,7 +648,7 @@
 		max-width: 100%;
 		flex-shrink: 1;
 		overflow: hidden;
-		height: 5rem;
+		height: 3.125rem;
 		padding: 0;
 		margin: 0;
 
@@ -661,11 +661,11 @@
 			display: flex;
 			justify-content: flex-start;
 			align-items: center;
-			gap: 0.5rem;
+			gap: 0.313rem;
 
 			max-width: fit-content;
-			height: 4rem;
-			padding: 1rem 1rem 1rem 0.5rem;
+			height: 2.5rem;
+			padding: 0.5rem 0.5rem 0.5rem 0.313rem;
 			margin: 0;
 			background: none;
 
@@ -683,14 +683,14 @@
 		}
 
 		[data-icon] {
-			width: 3rem;
+			width: 1.875rem;
 			height: 100%;
 
 			background-color: var(--fg-e);
 
 			mask-repeat: no-repeat;
 			mask-position: 50% 50%;
-			mask-size: calc(100% - 1rem) auto;
+			mask-size: calc(100% - 0.5rem) auto;
 
 			transition: background-color 0.15s;
 
@@ -704,7 +704,7 @@
 		}
 
 		[data-icon='github'] {
-			width: 3rem;
+			width: 1.875rem;
 			mask-image: url('$lib/icons/github.svg');
 		}
 	}
@@ -713,7 +713,7 @@
 	@container col (max-width: 66cqi) {
 		ul.socials li a {
 			// background: none !important;
-			padding: 1rem 0.5rem;
+			padding: 0.5rem 0.313rem;
 		}
 		ul.socials li a .text {
 			outline: 1px solid lime !important;

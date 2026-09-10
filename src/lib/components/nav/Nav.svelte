@@ -29,7 +29,7 @@
 
 <nav class:visible style:z-index={nav_state.open ? 80 : null} aria-label="Primary">
 	<a class="home-link" href="/" aria-label="Home">
-		<Logo active={page.url.pathname === '/'} --width="3rem" --circle="transparent" --delay="0s" />
+		<Logo active={page.url.pathname === '/'} --width="2.75rem" --circle="transparent" --delay="0s" />
 	</a>
 
 	<div class="desktop">
@@ -42,8 +42,8 @@
 
 <style lang="scss">
 	nav {
-		// contain: layout size style;
-		// view-transition-name: nav;
+		contain: layout size style;
+		view-transition-name: nav;
 
 		position: fixed;
 		display: flex;
@@ -54,7 +54,7 @@
 		width: var(--nav-width);
 		height: var(--nav-height);
 		margin: 0 auto;
-		padding: 0 clamp(1.5rem, 2.5rem, 1.75vw);
+		padding: 0 clamp(1rem, 1.5rem, 1.75vw);
 
 		background-color: var(--bg-b);
 		// box-shadow: 0px -4px 10px 10px rgba(0, 0, 0, 1) !important;
@@ -90,8 +90,7 @@
 	}
 
 	.home-link {
-		transform: translateY(2px);
-		margin-right: 1rem;
+		margin-right: 0.5rem;
 		box-shadow: none;
 	}
 
@@ -132,8 +131,8 @@
 		.home-link {
 			// outline: 1px solid red;
 			margin: unset;
-			transform: translate(-1rem, -0.1rem);
-			width: 5rem;
+			transform: translate(-0.5rem, -0.063rem);
+			width: 3.125rem;
 		}
 
 		.nav-spacer {

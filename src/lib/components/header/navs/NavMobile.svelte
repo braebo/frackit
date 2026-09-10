@@ -43,8 +43,8 @@
 <style>
 	.burger {
 		position: fixed;
-		bottom: 0.5rem;
-		left: 0.25rem;
+		bottom: 0.313rem;
+		left: 0.156rem;
 
 		z-index: 101;
 	}
@@ -56,11 +56,11 @@
 	ul {
 		position: fixed;
 		inset: 0;
-		gap: 2rem;
+		gap: 1.25rem;
 
 		margin: auto;
 
-		transform: translateY(-2rem);
+		transform: translateY(-1.25rem);
 		z-index: 25;
 	}
 

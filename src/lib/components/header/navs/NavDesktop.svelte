@@ -31,7 +31,7 @@
 
 	ul {
 		display: flex;
-		gap: 3rem;
+		gap: 1.875rem;
 
 		z-index: 1;
 	}
@@ -39,7 +39,7 @@
 	li {
 		list-style: none;
 
-		width: 4rem;
+		width: 2.5rem;
 
 		color: var(--fg-a);
 		opacity: 0;

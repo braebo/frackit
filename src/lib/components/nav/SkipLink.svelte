@@ -17,16 +17,16 @@ Accessibility helper component to skip to the main content
 		display: flex;
 		align-items: center;
 
-		height: calc(var(--nav-height) - 2rem);
-		padding: 0 1rem;
+		height: calc(var(--nav-height) - 1.25rem);
+		padding: 0 0.5rem;
 
 		background: var(--bg-a);
 		color: inherit;
 
 		font: var(--font-ui-md);
 
-		inset-block-start: 1rem;
-		inset-inline-start: 1rem;
+		inset-block-start: 0.5rem;
+		inset-inline-start: 0.5rem;
 		transform: translateY(-999px);
 
 		z-index: 1000; /* 1 more than the banner z-index */

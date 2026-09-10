@@ -1,12 +1,18 @@
 import type { CategorySummary } from './utilities'
 import type { DroppedCategory } from './types'
 
-import { l, d, c, p } from '@braebo/ansi'
+import { l, d, c, p, y, em } from '@braebo/ansi'
 import { relative } from 'node:path'
 
-/** Logger prefix. */
-export const P = p('|')
+/**
+ * Logger prefix.
+ */
+export const SEP = '┃'
+export const P = p(SEP)
 
+/**
+ * Debug logging.
+ */
 export function printCategoryTables({
 	summaries,
 	dropped,
@@ -26,12 +32,13 @@ export function printCategoryTables({
 	l(P)
 	l(P, 'Generated', c('tokens.json'), '-', d(relative(process.cwd(), outputPath)))
 	l(P)
+	l(P, 'Summary:')
 	console.table(counts)
 
 	if (dropped.length > 0) {
-		l(P)
-		l(P, 'Dropped categories (no tokens/utilities):')
-		l(P)
+		l(y(SEP))
+		l(y(SEP), y(dropped.length + d(' dropped categories ' + em('(no tokens/utilities):'))))
+		l(y(SEP))
 		const rows = dropped.map(({ name, reason, details, path }) => ({
 			name,
 			reason,

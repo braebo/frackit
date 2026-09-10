@@ -21,7 +21,7 @@ Top navigation bar for the application. It provides a slot for the left side, th
 		links,
 		title,
 	}: {
-		links: Route[]
+		links: readonly Route[]
 		title: string | undefined
 	} = $props()
 
@@ -125,8 +125,8 @@ Top navigation bar for the application. It provides a slot for the left side, th
 		display: flex;
 		align-items: center;
 		color: inherit;
-		margin-left: 0.4rem;
-		font-size: 1.5rem;
+		margin-left: 0.25rem;
+		font-size: 1rem;
 	}
 
 	@media (min-width: 832px) {

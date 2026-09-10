@@ -1,4 +1,5 @@
 import type { TokenCategory, TokenMap, TokenType } from './types'
+
 import { TOKEN_TYPES } from './types'
 
 import { d } from '@braebo/ansi'
@@ -18,30 +19,7 @@ type CategoryDataForType = TokenCategory extends infer Category
 
 const countEntries = (data: CategoryDataForType): number => Object.keys(data).length
 
-const buildSummaryReducer = (category: TokenCategory): ((summary: CategorySummary) => void) | null => {
-	switch (category.type) {
-		case TOKEN_TYPES.CUSTOM_PROPERTIES: {
-			return summary => {
-				summary.customProperties = countEntries(category.data)
-			}
-		}
-		case TOKEN_TYPES.UTILITIES: {
-			return summary => {
-				summary.utilities = countEntries(category.data)
-			}
-		}
-		case TOKEN_TYPES.SOURCE: {
-			return summary => {
-				summary.source = true
-			}
-		}
-		default: {
-			return null
-		}
-	}
-}
-
-export function summarizeTokenCategories(tokens: TokenMap): CategorySummary[] {
+export const summarizeTokenCategories = (tokens: TokenMap): CategorySummary[] => {
 	const summaryMap = new Map<string, CategorySummary>()
 
 	for (const [name, category] of Object.entries(tokens)) {
@@ -53,16 +31,39 @@ export function summarizeTokenCategories(tokens: TokenMap): CategorySummary[] {
 			summaryMap.set(baseName, summary)
 		}
 
-		const enrichSummaryForCategory = buildSummaryReducer(category)
+		const enrichSummaryForCategory = summarize(category)
 		if (enrichSummaryForCategory) {
 			enrichSummaryForCategory(summary)
+		}
+	}
+
+	function summarize(category: TokenCategory): ((summary: CategorySummary) => void) | null {
+		switch (category.type) {
+			case TOKEN_TYPES.CUSTOM_PROPERTIES: {
+				return summary => {
+					summary.customProperties = countEntries(category.data)
+				}
+			}
+			case TOKEN_TYPES.UTILITIES: {
+				return summary => {
+					summary.utilities = countEntries(category.data)
+				}
+			}
+			case TOKEN_TYPES.SOURCE: {
+				return summary => {
+					summary.source = true
+				}
+			}
+			default: {
+				return null
+			}
 		}
 	}
 
 	return Array.from(summaryMap.values())
 }
 
-export function ensureReasonableOutput(tokens: TokenMap): CategorySummary[] {
+export const ensureReasonableOutput = (tokens: TokenMap): CategorySummary[] => {
 	if (Object.keys(tokens).length === 0) {
 		throw new Error('No SCSS files found in src/styles. Tokens output would be empty.')
 	}

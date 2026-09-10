@@ -10,12 +10,11 @@ import type { Dirent } from 'node:fs'
 
 import { readdir, readFile } from 'node:fs/promises'
 import { basename, join, extname } from 'node:path'
-import { fileURLToPath } from 'node:url'
 import { TOKEN_TYPES } from './types'
 
 import scssSyntax from 'postcss-scss'
 
-const ROOT_DIR = fileURLToPath(new URL(process.cwd(), import.meta.url))
+const ROOT_DIR = process.cwd()
 
 const STYLES_DIR = join(ROOT_DIR, 'src', 'styles')
 const SCSS_EXTENSION = '.scss'
@@ -136,7 +135,6 @@ const summarizeDropped = (name: string, root: import('postcss').Root, path: stri
 
 	return { name, reason: 'no tokens/utilities detected', path }
 }
-
 
 const buildCategoryName = (baseName: string): string => baseName
 

@@ -36,7 +36,7 @@
 		align-items: center;
 
 		height: var(--height);
-		padding: 0 1.25rem;
+		padding: 0 0.781rem;
 
 		z-index: 50;
 

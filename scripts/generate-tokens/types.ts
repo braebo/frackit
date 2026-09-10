@@ -2,13 +2,20 @@
  * @fileoverview Types for the generate-tokens script.
  */
 
+/**
+ * Valid token data variants.
+ */
 export const TOKEN_TYPES = {
-	/** A key/value pair of custom properties. */
+	/**
+	 * A key/value pair of custom properties.
+	 */
 	CUSTOM_PROPERTIES: 'CUSTOM_PROPERTIES',
-	/** A key/value pair of utility classes. */
+	/**
+	 * A key/value pair of utility classes.
+	 */
 	UTILITIES: 'UTILITIES',
 	/**
-	 * The source file that the token was extracted from.
+	 * The source code of the file associated with the category.
 	 * TODO: This can be displayed as scss on '/src/routes/design/tokens/+page.svelte' and highlighted with this apps SampleKit Shiki preprocessor support in .svelte files.
 	 */
 	SOURCE: 'SOURCE',

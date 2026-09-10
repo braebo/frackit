@@ -65,7 +65,7 @@
 		display: flex;
 		position: relative;
 		align-items: center;
-		gap: 3.2rem;
+		gap: 2rem;
 
 		width: fit-content;
 		margin: 0 auto;
@@ -89,13 +89,13 @@
 	}
 
 	.letter {
-		transform: translateY(7.1rem);
+		transform: translateY(4.438rem);
 		user-select: none;
 	}
 
 	.logo-wrapper {
 		position: relative;
-		top: 0.8rem;
+		top: 0.5rem;
 		width: 100%;
 		height: 100%;
 	}

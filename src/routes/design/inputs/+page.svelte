@@ -72,25 +72,25 @@
 
 <style>
 	section {
-		--width: min(100%, 42rem);
+		--width: min(100%, 26.25rem);
 	}
 
 	#form {
 		width: var(--width);
 		margin: 0 auto;
 		> div {
-			margin-bottom: 1rem;
+			margin-bottom: 0.5rem;
 		}
 	}
 
 	form {
 		display: flex;
 		flex-direction: column;
-		gap: 3rem;
+		gap: 1.875rem;
 
 		width: var(--width);
 		margin: 0 auto;
-		padding: 3rem;
+		padding: 1.875rem;
 
 		/* background: color-mix(in srgb, var(--bg-a), var(--bg-b) 42%); */
 		background: light-dark(color-mix(in srgb, var(--bg-a), var(--bg-b) 15%), #0a0a0d);

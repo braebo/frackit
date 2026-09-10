@@ -28,8 +28,8 @@
 	button {
 		/* background-size: 1.5rem; */
 		/* outline: 1px solid red; */
-		width: 2rem;
-		height: 2rem;
+		width: 1.25rem;
+		height: 1.25rem;
 		padding: 0;
 	}
 

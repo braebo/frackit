@@ -17,7 +17,7 @@
 		perspective-origin: 50% 50%;
 
 		width: fit-content;
-		margin-top: 5rem;
+		margin-top: 3.125rem;
 	}
 
 	h1 {
@@ -32,14 +32,14 @@
 			'wght' 900,
 			'wdth' 125;
 
-		min-width: 7rem;
+		min-width: 4.375rem;
 	}
 
 	.letter {
 		position: relative;
 
 		opacity: 0;
-		transform: translateX(5rem);
+		transform: translateX(3.125rem);
 		text-align: center;
 
 		animation: letterIn cubic-bezier(0.25, 1, 0.5, 1) forwards;
@@ -65,7 +65,7 @@
 	@keyframes letterIn {
 		0% {
 			opacity: 0;
-			transform: translateX(1rem);
+			transform: translateX(0.5rem);
 			font-variation-settings:
 				'wght' 100,
 				'wdth' 125;

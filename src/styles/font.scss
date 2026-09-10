@@ -33,15 +33,15 @@
 	--font-b: 'dosis', system-ui, sans-serif;
 	--font-m: 'inconsolata', system-ui, monospace;
 
-	--font-xxs: clamp(0.8rem, 2vw, 1rem);
-	--font-xs: clamp(1rem, 2vw, 1.2rem);
-	--font-sm: clamp(1.2rem, 2vw, 1.3rem);
-	--font: clamp(1.6rem, 2.7vw, 1.8rem); // todo: update the others like this one
-	--font-md: clamp(1.6rem, 2vw, 2rem);
-	--font-lg: clamp(2rem, 5vw, 2.8rem);
-	--font-xl: clamp(2.4rem, 5vw, 3.2rem);
-	--font-xxl: clamp(2.8rem, 7vw, 4.8rem);
-	--font-xxxl: clamp(4.8rem, 10vw, 8rem);
+	--font-xxs: clamp(0.5rem, 2vw, 0.5rem);
+	--font-xs: clamp(0.5rem, 2vw, 0.75rem);
+	--font-sm: clamp(0.75rem, 2vw, 0.875rem);
+	--font: clamp(1rem, 2.7vw, 1.1rem); // todo: update the others like this one
+	--font-md: clamp(1rem, 2vw, 1.25rem);
+	--font-lg: clamp(1.25rem, 5vw, 1.75rem);
+	--font-xl: clamp(1.5rem, 5vw, 2rem);
+	--font-xxl: clamp(1.75rem, 7vw, 3rem);
+	--font-xxxl: clamp(3rem, 10vw, 5rem);
 
 	/* doing it this way (rather than just `1.5`) means it has a unit, and can be used elsewhere */
 	--line-height-body: calc(1.5 * var(--font));

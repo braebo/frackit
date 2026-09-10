@@ -64,7 +64,7 @@
 		}
 
 		&:hover {
-			--accent: var(--fg-d);
+			--accent: var(--theme-a);
 		}
 	}
 
